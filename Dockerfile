@@ -16,8 +16,10 @@ RUN yarn install
 # Copy app source code
 COPY . .
 
-# Make entrypoint script executable
-RUN chmod +x docker-entrypoint.sh
+# Fix line endings and make entrypoint script executable
+RUN apk add --no-cache dos2unix \
+    && dos2unix docker-entrypoint.sh \
+    && chmod +x docker-entrypoint.sh
 
 # Exports
 EXPOSE 5555
